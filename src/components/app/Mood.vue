@@ -1,21 +1,19 @@
 <template>
   <div
-    class="emotion"
+    class="mood"
     :style="{ top: y + 'px', left: x + 'px' }"
-    @mouseenter="setWin(true)"
-    @mouseleave="setWin(false)"
   >
     <div class="header" @mousedown="move($event, 300, 480)">
       <svg
         class="icon app-icon back"
         aria-hidden="true"
-        @click="back('emotion')"
+        @click="back('mood')"
       >
         <use xlink:href="#icon-back"></use>
       </svg>
       <h2>此刻心情</h2>
     </div>
-    <el-table :data="emotions" border style="width: 100%" height="440">
+    <el-table :data="moods" border style="width: 100%" height="440">
       <el-table-column
         :resizable="false"
         align="center"
@@ -33,7 +31,7 @@
           <svg
             class="icon app-icon"
             aria-hidden="true"
-            @click="setEmotion(scope.row.normal)"
+            @click="setMood(scope.row.normal)"
           >
             <use :xlink:href="`#icon-${scope.row.normal}`"></use>
           </svg>
@@ -50,7 +48,7 @@
           <svg
             class="icon app-icon"
             aria-hidden="true"
-            @click="setEmotion(scope.row.plenty)"
+            @click="setMood(scope.row.plenty)"
           >
             <use :xlink:href="`#icon-${scope.row.plenty}`"></use>
           </svg>
@@ -67,7 +65,7 @@
           <svg
             class="icon app-icon"
             aria-hidden="true"
-            @click="setEmotion(scope.row.extreme)"
+            @click="setMood(scope.row.extreme)"
           >
             <use :xlink:href="`#icon-${scope.row.extreme}`"></use>
           </svg>
@@ -86,7 +84,7 @@ export default {
     return {
       x: window.innerWidth / 2 - 150,
       y: window.innerHeight / 2 - 240,
-      emotions: [
+      moods: [
         {
           type: "开心",
           normal: "xiaolian",
@@ -188,19 +186,19 @@ export default {
   },
   methods: {
     ...mapMutations({
-      set: "setEmotion",
+      set: "setMood",
     }),
-    setEmotion(emotion) {
-      if (emotion === "none") return;
-      this.set(emotion);
-      this.back("emotion");
+    setMood(mood) {
+      if (mood === "none") return;
+      this.set(mood);
+      this.back("mood");
     },
   },
 };
 </script>
 
 <style lang="scss" scope>
-.emotion {
+.mood {
   position: absolute;
   width: 300px;
   height: 480px;

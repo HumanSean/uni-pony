@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Emotion from "./Emotion.vue";
+import Mood from "./Mood.vue";
 import Settings from "./Settings.vue";
 import Bookshelf from "./Bookshelf.vue";
 import ElementUI from "element-ui";
@@ -13,7 +13,7 @@ import globalUtil from "../../utils/main";
 Vue.use(ElementUI);
 
 const appList = {
-    Emotion,
+    Mood,
     Settings,
     Bookshelf
 }
