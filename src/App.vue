@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" @click.right.prevent>
     <el-popover
       placement="top-end"
       trigger="manual"
       v-model="visible"
-      width="260"
+      width="270"
     >
       <!-- 一级菜单 -->
       <span v-if="type === 'tool' && tool === 'first'">
@@ -43,10 +43,9 @@
         alt=""
         draggable="true"
         @keydown.ctrl.alt="handleKeydown($event)"
-        @mousedown="move($event)"
-        @click.exact="speak"
-        @click.right.prevent="useTool"
-        @click.ctrl.exact="useTool"
+        @mousedown.ctrl.exact="move($event)"
+        @click.exact="useTool"
+        @click.right.prevent="speak"
         slot="reference"
       />
     </el-popover>
@@ -317,7 +316,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 * {
   margin: 0;
   padding: 0;
@@ -367,4 +366,9 @@ body,
 .el-popover span {
   text-align: justify;
 }
+.el-tooltip__popper {
+  background: #111 !important;
+  border: 1px solid #fff;
+}
+
 </style>

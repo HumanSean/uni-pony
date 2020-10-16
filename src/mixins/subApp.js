@@ -24,16 +24,6 @@ const subApp = {
                 document.onmousemove = null;
             };
         },
-        setWin(state) {
-            console.log(state);
-            // if (state) {
-            //     win.setIgnoreMouseEvents(false);
-            // } else {
-            //     win.setIgnoreMouseEvents(true, {
-            //         forward: true
-            //     })
-            // }
-        }
     }
 }
 export default subApp;

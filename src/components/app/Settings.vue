@@ -2,8 +2,6 @@
   <div
     class="settings"
     :style="{ top: y + 'px', left: x + 'px' }"
-    @mouseenter="setWin(true)"
-    @mouseleave="setWin(false)"
   >
     <div class="header" @mousedown="move($event, 640, 480)">
       <svg
@@ -23,7 +21,6 @@
 
 <script>
 import { mapMutations } from "vuex";
-// import globalUtil from "../../../utils/main";
 import subApp from "../../mixins/subApp";
 export default {
   mixins: [subApp],

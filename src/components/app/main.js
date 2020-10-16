@@ -1,7 +1,15 @@
 import Vue from "vue";
 import Mood from "./Mood.vue";
 import Settings from "./Settings.vue";
-import Bookshelf from "./Bookshelf.vue";
+import Notebook from "./Notebook.vue";
+import Todolist from "./Todolist.vue";
+import Tomato from "./Tomato.vue";
+import Music from "./Music.vue";
+import Movie from "./Movie.vue";
+import Game from "./Game.vue";
+import Chat from "./Chat.vue";
+import Weather from "./Weather.vue";
+import Diary from "./Diary.vue";
 import ElementUI from "element-ui";
 import '../../styles.scss';
 import store from '../../store';
@@ -10,12 +18,28 @@ import "../../assets/iconfont/iconfont";
 
 import globalUtil from "../../utils/main";
 
+import axios from "axios";
+
+import { VueJsonp } from 'vue-jsonp';
+
+
+Vue.prototype.$axios = axios;
+
+Vue.use(VueJsonp)
 Vue.use(ElementUI);
 
 const appList = {
     Mood,
     Settings,
-    Bookshelf
+    Notebook,
+    Todolist,
+    Tomato,
+    Music,
+    Movie,
+    Game,
+    Chat,
+    Weather,
+    Diary
 }
 const multipleList = {
     Settings

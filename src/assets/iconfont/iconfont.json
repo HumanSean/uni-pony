@@ -6,6 +6,90 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2416568",
+      "name": "download",
+      "font_class": "download",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "13712880",
+      "name": "play_list",
+      "font_class": "songList",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "830766",
+      "name": "delete",
+      "font_class": "delete",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "928107",
+      "name": "playlist",
+      "font_class": "playlist",
+      "unicode": "e75b",
+      "unicode_decimal": 59227
+    },
+    {
+      "icon_id": "13698360",
+      "name": "loop ",
+      "font_class": "loop",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "15458440",
+      "name": "loop-1",
+      "font_class": "singleLoop",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "7205966",
+      "name": "Pause",
+      "font_class": "pause",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "7205969",
+      "name": "Rew",
+      "font_class": "last",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "7205970",
+      "name": "ffw",
+      "font_class": "next",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "7205973",
+      "name": "Sound",
+      "font_class": "volume",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "7205976",
+      "name": "Shuffle",
+      "font_class": "shuffle",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "7205964",
+      "name": "Play",
+      "font_class": "play",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
       "icon_id": "14499368",
       "name": "no finish",
       "font_class": "none",
