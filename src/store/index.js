@@ -86,6 +86,9 @@ export default new Vuex.Store({
   mutations: {
     setMood(state, mood) {
       state.mood = mood;
+    },
+    deleteSong(state, song) {
+      state.songs.splice(state.songs.indexOf(song), 1);
     }
   },
   actions: {

@@ -9,10 +9,7 @@ import "./assets/iconfont/iconfont";
 
 import axios from "axios";
 
-import { VueJsonp}  from 'vue-jsonp';
-
 Vue.prototype.$axios = axios;
-Vue.use(VueJsonp)
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;

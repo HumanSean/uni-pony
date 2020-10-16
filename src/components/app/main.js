@@ -20,12 +20,9 @@ import globalUtil from "../../utils/main";
 
 import axios from "axios";
 
-import { VueJsonp } from 'vue-jsonp';
-
 
 Vue.prototype.$axios = axios;
 
-Vue.use(VueJsonp)
 Vue.use(ElementUI);
 
 const appList = {

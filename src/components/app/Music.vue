@@ -30,7 +30,19 @@
       </div>
     </div>
     <div class="playlist" v-if="showPlaylist" @click.right="back">
-      <ul class="normal" v-if="showDetail">
+      <ul class="flex" v-if="!showDetail && !showList">
+        <li
+          v-for="l in lists"
+          :key="l"
+          @click="
+            showDetail = true;
+            detail = l;
+          "
+        >
+          {{ l }}
+        </li>
+      </ul>
+      <ul class="normal" v-if="showDetail && !showList">
         <li v-for="song in playlist[detail]" :key="song.songId">
           <span>{{ song.name }}</span>
           <span>
@@ -46,18 +58,26 @@
           </span>
         </li>
       </ul>
-      <ul class="flex" v-else>
-        <li
-          v-for="l in lists"
-          :key="l"
-          @click="
-            showDetail = true;
-            detail = l;
-          "
-        >
-          {{ l }}
-        </li>
-      </ul>
+      <div v-if="showList">
+        <p>
+          {{ selectedSong.name }} - {{ selectedSong.artist }}
+          <input type="text" v-model="newList">
+          <span>
+            <svg
+              class="icon small-icon"
+              aria-hidden="true"
+              @click="addList"
+            >
+              <use xlink:href="#icon-add"></use>
+            </svg>
+          </span>
+        </p>
+        <ul class="flex small">
+          <li v-for="l in selectedSong.list" :key="l">
+            {{ l }}
+          </li>
+        </ul>
+      </div>
     </div>
 
     <!-- 按键区域 -->
@@ -181,11 +201,7 @@
           <div slot="content" style="text-align: center; line-height: 1.5">
             【左键】打开/关闭歌单列表，【右键】新增歌曲。<br />打开后在MP3屏幕上按【右键】返回上一层。
           </div>
-          <svg
-            class="icon app-icon"
-            aria-hidden="true"
-            @click="showPlaylist = !showPlaylist"
-          >
+          <svg class="icon app-icon" aria-hidden="true" @click="togglePlaylist">
             <use xlink:href="#icon-playlist"></use>
           </svg>
         </el-tooltip>
@@ -243,6 +259,9 @@ export default {
         { name: "delete", method: this.removeSong },
         { name: "songList", method: this.songList },
       ],
+      showList: false,
+      selectedSong: null,
+      newList: "",
 
       hideTooltip: false,
     };
@@ -268,12 +287,12 @@ export default {
     },
   },
   methods: {
-    ...mapMutations([]),
+    ...mapMutations(["deleteSong"]),
     // getSongInfo
     loadSong() {
       this.$refs.audio.src =
         this.song.src ||
-        "http://music.163.com/song/media/outer/url?id=" + this.song.songId;
+        `http://music.163.com/song/media/outer/url?id=${this.song.songId}`;
       this.getLyric();
       this.$nextTick(() => {
         this.scrollTitle();
@@ -478,7 +497,6 @@ export default {
     },
     changeList(dir) {
       let index = this.lists.indexOf(this.list);
-      console.log(111);
       if (dir) {
         index++;
         if (index === this.lists.length) index = 0;
@@ -488,23 +506,42 @@ export default {
       }
       this.list = this.lists[index];
     },
+    // playlist
+    togglePlaylist() {
+      this.showDetail = this.showList = false;
+      this.showPlaylist = !this.showPlaylist;
+    },
     back() {
-      if (this.showDetail) {
+      if (this.showList) {
+        this.showList = false;
+      } else if (this.showDetail) {
         this.showDetail = false;
       } else {
         this.showPlaylist = false;
       }
     },
-    downloadSong() {
-
+    downloadSong(song) {
+      window.open(
+        song.src ||
+          `http://music.163.com/song/media/outer/url?id=${song.songId}`
+      );
     },
     removeSong(song) {
       if (this.detail === "所有歌曲") {
-        console.log(111);
+        if (this.songs.length === 1) return;
+        this.deleteSong(song);
       } else {
         song.list.splice(song.list.indexOf(this.detail), 1);
       }
     },
+    songList(song) {
+      this.showList = true;
+      this.selectedSong = song;
+    },
+    addList() {
+      this.selectedSong.list.push(this.newList);
+      this.newList = "";
+    }
   },
   watch: {
     // scroll
@@ -553,6 +590,7 @@ export default {
   overflow: hidden;
   user-select: none;
   background: #111;
+  font-family: Comic Sans MS;
 }
 .app-icon {
   color: #fff;
@@ -569,7 +607,7 @@ export default {
     height: 60%;
     border-radius: 3px;
     border: 1px solid #fff;
-    font-size: 10px;
+    font-size: 12px;
     color: #eee;
     padding: 3px;
     box-sizing: border-box;
@@ -595,11 +633,12 @@ export default {
   }
   .time {
     display: inline-block;
-    width: 70px;
+    width: 65px;
     text-align: center;
     position: absolute;
     right: 3px;
     top: 3px;
+    font-family: Segoe UI Light;
   }
   .lyric {
     position: relative;
@@ -618,7 +657,7 @@ export default {
     height: 60%;
     border-radius: 3px;
     border: 1px solid #fff;
-    font-size: 10px;
+    font-size: 12px;
     color: #eee;
     padding-left: 0;
     box-sizing: border-box;
@@ -638,6 +677,9 @@ export default {
     justify-content: space-around;
     align-items: center;
   }
+  .flex.small {
+    height: 30px;
+  }
   li {
     list-style-type: none;
     cursor: pointer;
@@ -652,7 +694,7 @@ export default {
   }
   .normal span:first-of-type {
     display: inline-block;
-    width: 210px;
+    width: 192px;
     white-space: nowrap;
     overflow: hidden;
   }
@@ -660,10 +702,15 @@ export default {
     float: right;
   }
   .normal .small-icon {
-    width: 16px;
-    height: 16px;
-    vertical-align: -0.39em;
+    width: 18px;
+    height: 18px;
     margin-left: 5px;
+  }
+  input {
+    width: 52px;
+    background: #111;
+    border: 1px solid #eee;
+    color: #eee;
   }
 }
 
